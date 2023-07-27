@@ -1,0 +1,122 @@
+swagger: '2.0'
+info:
+  description: >-
+    Documentación del API Retail Cliente para las operaciones relacionadas con
+    clientes.
+  version: 1.0.0
+  title: Swagger Retail Cliente
+  termsOfService: http://swagger.io/terms/
+  contact:
+    email: ecaycho7@gmail.com
+  license:
+    name: Apache 2.0
+    url: http://www.apache.org/licenses/LICENSE-2.0.html
+host: localhost:8081
+basePath: /
+tags:
+  - name: Retail Cliente
+    description: API Rest Retail Cliente para las operaciones relacionadas con clientes.
+    externalDocs:
+      description: Find out more
+      url: http://swagger.io
+schemes:
+  - https
+  - http
+paths:
+  /retail/listclientes:
+    get:
+      tags:
+        - Retail Cliente
+      summary: >-
+        Devuelve una lista de clientes con su información y la fecha estimada de
+        fallecimiento.
+      produces:
+        - application/json
+      responses:
+        '200':
+          description: Operación exitosa.
+          schema:
+            $ref: '#/definitions/Cliente'
+          examples:
+            application/json:
+              idCliente: 1
+              nombre: Miguel
+              aPaterno: Torres
+              aMaterno: Lima
+              edad: 31
+              fecNacimiento: 16-05-1992
+              fecProbableFallecimiento: 16-05-2100
+        '500':
+          description: Error interno del servidor.
+  /retail/creacliente:
+    post:
+      tags:
+        - Retail Cliente
+      summary: Crea un nuevo cliente con la información proporcionada.
+      consumes:
+        - application/json
+      produces:
+        - application/json
+      responses:
+        '201':
+          description: Cliente creado exitosamente.
+          schema:
+            $ref: '#/definitions/Cliente'
+          examples:
+            application/json:
+              idCliente: 1
+              nombre: Miguel
+              aPaterno: Torres
+              aMaterno: Lima
+              edad: 31
+              fecNacimiento: 16-05-1992
+        '400':
+          description: Solicitud inválida.
+        '500':
+          description: Error interno del servidor.
+  /retail/kpiclientes:
+    get:
+      tags:
+        - Retail Cliente
+      summary: >-
+        Devuelve el promedio de edad y la desviación estándar de las edades de
+        todos los clientes registrados.
+      produces:
+        - application/json
+      responses:
+        '200':
+          description: Operación exitosa.
+          examples:
+            application/json:
+              edadPromedio: 33.3333
+              desviacionEstandar: 55.01
+        '500':
+          description: Error interno del servidor.
+definitions:
+  Cliente:
+    type: object
+    properties:
+      idcliente:
+        type: integer
+        format: int64
+        example: 1
+      nombre:
+        type: string
+        example: Erick
+      aPaterno:
+        type: string
+        example: Caycho
+      aMaterno:
+        type: string
+        example: Ponce
+      edad:
+        type: integer
+        example: 31
+      fecNacimiento:
+        type: string
+        format: date
+        pattern: /([0-9]{2})-(?:[0-9]{2})-([0-9]{4})/
+        example: 06-03-1992
+externalDocs:
+  description: Find out more about Swagger
+  url: http://swagger.io
